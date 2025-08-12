@@ -1,0 +1,25 @@
+
+services:
+  app:
+    build: .
+    container_name: my_app_c
+    ports:
+      - "8081:8080"
+
+  postgresql:
+    image : postgres:latest
+    container_name: my_postgres_c
+    environment:
+      POSTGRES_USER: ather
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: docker-db
+    ports:
+      - "5433:5432"
+#  pgadmin:
+#    image: dpage/pgadmin4:latest
+#    container_name: my_pgadmin_c
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: net.ather@gmail.com
+#      PGADMIN_DEFAULT_PASSWORD: admin
+#    ports:
+#      - "8093:8083"
