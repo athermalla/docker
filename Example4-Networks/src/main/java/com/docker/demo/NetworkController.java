@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @RestController
-public class NetworkContainer {
+public class NetworkController {
 
 
     @Bean
@@ -33,7 +33,22 @@ public class NetworkContainer {
     @GetMapping("/")
     public String greet() {
 
+        System.out.println("hello this is running from Docker");
         return "hello this is running from Docker";
+
+
+    }
+
+    @GetMapping("/greetLocalHost")
+    public String greetLocalHost() {
+
+        Mono<String> data =  webClient().get()
+                .uri("http://host.docker.internal:8080/")
+                .retrieve()
+                .bodyToMono(String.class);
+        String s = data.block();
+        System.out.println(s);
+        return s;
 
 
     }
